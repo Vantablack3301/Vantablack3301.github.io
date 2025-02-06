@@ -1,4 +1,6 @@
-remote_theme: jekyll-theme-chirpy
+remote_theme: cotes2020/jekyll-theme-chirpy
+
+url: https://vantablack3301.github.io/
 
 github:
   username: Vantablack3301 # change to your GitHub username
