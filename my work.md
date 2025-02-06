@@ -15,11 +15,6 @@ Recreation of Dishonored 2 time travel mechanic: Unreal engine 5 with blueprints
 # Game Jams
 these are where i tend to experiment a lot, so i figured here would be a good chance to show off what i did that im personally proud of
 
-Cryophobia: unreal engine 5, 2024
-<video controls src="works/freeze jam/2024-01-28 15-08-59.mp4" title="Title"></video>
-
-i did most of the work on shaders and rendering for this jam. [read more](<works/freeze jam/Freeze Jam Showcase (and my personal project).md>).
-
 U-Bird Eats: Unreal Engine 5, 2024 https://exudos.itch.io/u-bird-eats
 <video controls src="works/u-bird eats/ubird-eats.mp4" title="Title"></video>
 

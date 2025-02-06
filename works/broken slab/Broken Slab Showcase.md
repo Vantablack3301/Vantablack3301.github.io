@@ -1,7 +1,8 @@
 In an attempt to not only improve my technical knowledge, but also keep the momentum of earlier comp courses going, I took a scripting in videogames class in fall of 2024. This wasn't a required course, but it was something that I felt would be important personally. the course itself ran through some of the same concepts we learned in our comp courses, however under the context of Unreal Engine Blueprints. it would also later cover more advanced topics specific to the engine like timelines, UI, and more. 
 
 The major final assignment was where things got interesting, as we were required to either do a group project, or a solo project of remaking a mechanic from an existing videogame as closely as possible. As should be evident by now, i went with the latter.
-![[final submission1983-8175.mp4]]
+
+<video controls src="final submission1983-8175.mp4" title="Title"></video>
 
 The time travel mechanic from Dishonored 2 felt like the perfect goal for the assignment. Simple enough to plan out and break up into its individual elements, but just complicated enough to force me to learn some new things on my own. As i started the assignment, i had already used level streaming in a personal project in the past, so i figured it would be a good starting off point. While tutorials for this kind of mechanic in unreal did exist, i avoided using them for two main reasons:
 1. The revolved around essentially building two levels in the same unreal scene, which felt like an unoptimized approach i could improve on.
@@ -17,20 +18,21 @@ Now despite saying i was using level streaming as a jumping off point, i only st
 
 The mirror was a pretty basic model made in Blender that was Projection Unwrapped. this was done with the expectation that the scene was going to have to render on top unaltered. After this i did a bit of research into Render Targets at the suggestion of a friend. This ended up being the method i used to render the scene to the timepiece, and it looked really good. not only that, but it was extremely simple being an object that renders to a texture, and then a material that actually uses that texture.
 
-![[RenderTargets.mp4]]
+<video controls src="RenderTargets.mp4" title="Title"></video>
 
 After this i could finally work on the actual teleportation part of this. Why did i wait this long to start the more important part? Mainly because i needed some kind of setup to actually test what i was even doing. That aside, the actual teleport came down to just swapping positions of the mirror character and the main character as well as negating the offset so the mirror character doesn't fly off into the void.
-![[swapping.mp4]]
+<video controls src="swapping.mp4" title="Title"></video>
 
 now you may or may not have noticed a bit of a problem here. while the scene does project fine onto the time piece, its not positioned correctly at all. In the first clip, the middle of the camera view was mapped to the middle of the windows UV. in the clip above, i offset the UV in the render target material to more closely match to the center of the screen instead of the object. this worked fine at first, but its easy to see where things can go wrong. all it takes to destroy the effect in this case is a differently sized monitor or game window. it took another day or so of messing around, but i eventually did find a solution to this. the first part involved using the screen position node in the material shader to map the render target to the screen, entirely ignoring object UVs altogether, but this alone didn't fix everything, and instead i had to make the render target be a 16:9 texture rather than a perfect square. while it looked perfect now, it still wasn't ideal as the resolution was still hardcoded. while it could work fine for most people, if my TAs were using a MacBook with a 16:10 screen, or if i decided to port it to the steam deck, it would fit improperly. the solution was to create a dynamic material instance in the mirror characters blueprint and set the texture resolution there to whatever the resolution of the game window was. for added performance, i divided this by 8 which was far lighter on my laptops GPU.
 
 for a bit of polish, i also made a transition animation as the player teleports. in the above video, it mostly just cleanly switches scenes without much fanfare, and it was hard for some of the people i showed it to to even notice. the solution was to make a timeline event that slowed down time, increased FOV, increased film grain, and desaturated the whole scene all before swapping and reverting the changes. this made it look much more like dishonored and i was extremely happy with the result.
-![[improved teleport.mp4]]
+
+<video controls src="improved teleport.mp4" title="Title"></video>
 
 you may notice in that video, the other levels were also popping in and out of existence. this was another thing i worked on that day. i had the game mode keep track of whether or not the timepiece was open or not. if it wasn't, it would just take whichever level the the player wasn't in and unload it from the persistent level. while the performance hit of having both loaded at once was rather negligible on my desktop rig with a 3060, it was quite painful on my school laptop with a significantly weaker rx6500m, so this felt very justified in development.
 
 after that, it mostly came down to fleshing out a basic level with an end goal. despite how quickly i had been making progress up until this point, i did slow down significantly at this point, and was fairly rough with some of the final touches.
-![[scene demo.png]]
+![basic box scene with quixel textures and some simple scene assets](<scene demo.png>)
 
 the level design was fairly basic, but i used that to my advantage. as a level gimmick, i had one level set in early production that looked like a basic white box layout. the other, i textured properly and included vital things like exits and a level goal. the whole idea was you had to go back and forth in time to get to the level goal.
 
